@@ -1,0 +1,27 @@
+<div class="mb-4">
+  <%= link_to "← Назад к задачам", project_tasks_path(@project), class: "btn btn-link" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <h1 class="card-title"><%= @task.title %></h1>
+      <% case @task.status %>
+      <% when 'todo' %>
+        <span class="badge bg-secondary fs-6">To Do</span>
+      <% when 'in_progress' %>
+        <span class="badge bg-warning text-dark fs-6">In Progress</span>
+      <% when 'done' %>
+        <span class="badge bg-success fs-6">Done</span>
+      <% end %>
+    </div>
+
+    <h5 class="text-muted">Описание:</h5>
+    <p class="card-text"><%= @task.description.presence || "Описание не добавлено" %></p>
+
+    <div class="mt-4 d-flex gap-2">
+      <%= link_to "Редактировать", edit_project_task_path(@project, @task), class: "btn btn-primary" %>
+      <%= button_to "Удалить", project_task_path(@project, @task), method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Точно удалить задачу?" } %>
+    </div>
+  </div>
+</div>
